@@ -1,0 +1,53 @@
+---
+
+- name: Remove existing docker
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-engine
+    - docker.io
+  become: true
+
+- name: Install docker dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+  become: true
+
+- name: Add Docker GPG key
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+  become: true
+
+- name: get lsb_release
+  shell: lsb_release -cs 
+  register: lsb_release_string
+
+- name: Add docker repo (Stable)
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ lsb_release_string.stdout }} stable"
+    state: present
+  become: true
+
+- name: Install docker
+  apt:
+    name: docker-ce=17.06.0~ce-0~ubuntu
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Adding user to group docker 
+  user: 
+    name={{ ansible_user }}
+    groups=docker
+    append=yes
+  become: true

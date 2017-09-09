@@ -1,0 +1,18 @@
+---
+
+- name: Install pip
+  shell: |
+    curl -O https://bootstrap.pypa.io/get-pip.py
+    python get-pip.py --user
+
+- name: Ensure the profile file exists
+  file:
+    path: "/home/{{ ansible_user }}/.bash_profile"
+    state: touch
+    mode: "u=rwx,g=rwx,o=r"
+
+- name: Add executable path to PATH
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.bash_profile"
+    line: 'export PATH=~/.local/bin:$PATH'
+    state: present

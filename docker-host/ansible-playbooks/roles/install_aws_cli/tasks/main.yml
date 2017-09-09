@@ -1,0 +1,10 @@
+# Have dependencies on role "install_pip_user"
+
+---
+
+- name: Install aws-cli
+  shell: |
+    . ~/.bash_profile
+    pip install awscli --upgrade --user
+  args:
+    executable: /bin/bash

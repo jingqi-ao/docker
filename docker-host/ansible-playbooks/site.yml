@@ -25,3 +25,9 @@
   tasks:
     - include_role:
         name: install_docker
+
+    - include_role:
+        name: install_pip_user
+
+    - include_role:
+        name: install_aws_cli

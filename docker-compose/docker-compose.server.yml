@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+
+  mini-server:
+    image: 553035090112.dkr.ecr.us-east-1.amazonaws.com/mini-server:0.0.2
+    ports:
+      - "443:3000"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      - HTTP_MODE=https
+    logging:
+      driver: fluentd

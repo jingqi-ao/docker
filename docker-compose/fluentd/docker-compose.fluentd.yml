@@ -1,0 +1,15 @@
+version: "3.2"
+
+services:
+
+  fluentd:
+    #image: fluent/fluentd:v0.12.40
+    image: 553035090112.dkr.ecr.us-east-1.amazonaws.com/custom-fluentd:0.12.1
+    volumes:
+      #- "./fluentd_confs/test.conf:/fluentd/etc/test.conf"
+      - "./fluentd_confs/multi-output.conf:/fluentd/etc/multi-output.conf"
+    environment:
+      # - FLUENTD_CONF=test.conf
+      - FLUENTD_CONF=multi-output.conf
+    ports:
+      - "24224:24224"

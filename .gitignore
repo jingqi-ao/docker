@@ -3,3 +3,6 @@
 
 // Ansible retry file
 *.retry
+
+// logging build folder
+logging/fluentd/custom-fluentd/

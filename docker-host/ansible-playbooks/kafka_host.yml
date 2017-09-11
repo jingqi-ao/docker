@@ -23,10 +23,6 @@
 - hosts: docker_hosts
 
   tasks:
-
-    - include_role:
-        name: install_java
-
     - include_role:
         name: install_docker
 
@@ -38,3 +34,9 @@
 
     - include_role:
         name: install_aws_cli
+
+    - include_role:
+        name: install_kafka_tools
+
+    - include_role:
+        name: install_java

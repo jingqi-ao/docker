@@ -1,0 +1,22 @@
+---
+
+- name: Copy ujavainstaller.sh
+  copy:
+    src: "{{ role_path }}/files/UbuntuJavaInstaller-master/ujavainstaller.sh"
+    dest: /tmp/ujavainstaller.sh
+    mode: u+x,g+x,o+x
+
+- name: Download java JDK
+  shell: |
+    export PATH=$PATH:~/.local/bin
+    aws s3 cp s3://jao-develop/binaries/java/jdk-8u144-linux-x64.tar.gz /tmp/jdk-8u144-linux-x64.tar.gz
+  args:
+    executable: /bin/bash
+
+- name: Install java
+  shell: |
+    cd /tmp
+    ./ujavainstaller.sh jdk-8u144-linux-x64.tar.gz
+  args:
+    executable: /bin/bash
+  become: yes

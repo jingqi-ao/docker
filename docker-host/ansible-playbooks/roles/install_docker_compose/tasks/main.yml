@@ -1,0 +1,19 @@
+---
+
+- name: Download docker-compose
+  shell: |
+    curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-$(uname -s)-$(uname -m) \
+      -o /tmp/docker-compose
+
+- name: Place the docker-compose to the correct path
+  copy: 
+    src: /tmp/docker-compose
+    dest: /usr/local/bin/docker-compose
+    remote_src: yes
+  become: yes
+
+- name: Make docker-compose executable
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: "u+x,g+x,o+x"
+  become: yes

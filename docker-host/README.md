@@ -11,4 +11,6 @@ ssh -i key.pm ubuntu@1.2.3.4 -C "sudo ~/init_script.sh"
 
 ## Use Ansible to further configure the VM to the final "Ready to use" state
 
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml -e docker_hosts=1.2.3.4 -e docker_host_ssh_private_key_file=AWS/KEY/PATH.key -vv
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook site.yml -e remote_hosts=1.2.3.4 -e remote_host_ssh_private_key_file=AWS/KEY/PATH.key -vv
+
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook kafka_host.yml -e remote_hosts=1.2.3.4 -e remote_host_ssh_private_key_file=AWS/KEY/PATH.key -vv

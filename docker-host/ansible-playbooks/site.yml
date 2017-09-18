@@ -42,3 +42,6 @@
     - include_role:
         name: ansible-role-ntp
       become: yes
+
+    - include_role:
+        name: python_virtual_environment

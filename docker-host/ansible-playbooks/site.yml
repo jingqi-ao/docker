@@ -14,10 +14,10 @@
     - add_host:
         name: "{{ item }}"
         groups: docker_hosts
-        ansible_user: "{{ docker_host_ssh_user | default('ubuntu') }}"
-        ansible_ssh_private_key_file: "{{ docker_host_ssh_private_key_file }}"
+        ansible_user: "{{ remote_host_ssh_user | default('ubuntu') }}"
+        ansible_ssh_private_key_file: "{{ remote_host_ssh_private_key_file }}"
       with_items:
-        "{{ docker_hosts.split(',') }}"
+        "{{ remote_hosts.split(',') }}"
 
 
 - hosts: docker_hosts
@@ -38,3 +38,7 @@
 
     - include_role:
         name: install_aws_cli
+
+    - include_role:
+        name: ansible-role-ntp
+      become: yes

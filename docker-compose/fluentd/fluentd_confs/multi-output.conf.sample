@@ -1,0 +1,33 @@
+<source>
+  @type forward
+</source>
+
+<match *>
+  @type copy
+  <store>
+    @type stdout
+  </store>
+  <store>
+    @type kafka_buffered
+
+    # list of seed brokers
+    brokers 172.31.10.184:9092
+
+    # buffer settings
+    buffer_type file
+    #buffer_path /var/log/td-agent/buffer/td
+    buffer_path /fluentd/log/fluentd-kafka.log
+    flush_interval 3s
+
+    # topic settings
+    default_topic docker-log
+
+    # data type settings
+    output_data_type json
+    #compression_codec nil
+
+    # producer settings
+    max_send_retries 1
+    required_acks -1
+  </store>
+</match>
